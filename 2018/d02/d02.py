@@ -22,14 +22,22 @@ class Day02:
         return count_array[2] * count_array[3]
 
     def puzzle2(self):
-        #sorted_input = sorted([''.join(sorted(list(word))) for word in self._input])
-        sorted_input = [set(word) for word in self._input]
-        for i in range(len(sorted_input) - 1):
-            diff = sorted_input[i+1].symmetric_difference(sorted_input[i])
-            if len(diff) < 2:
-                return self._input[i+1], self._input[i], diff
+        for i in range(len(self._input) - 1):
+            for j in range(i, len(self._input)):
+                diff = self.edit_d(self._input[i], self._input[j])
+                if len(diff) == 1:
+                    return self._input[i][:diff[0]] + self._input[i][diff[0]+1:]
 
         return None
+
+    def edit_d(self, str1, str2):
+        """ Assumption: len(str1) == len(str2) """
+        diff = []
+        for i in range(len(str1)):
+            if str1[i] != str2[i]:
+                diff.append(i)
+        return diff
+
 
 
 if __name__ == '__main__':
