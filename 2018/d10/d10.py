@@ -33,6 +33,8 @@ class Day10:
                 x, y, vx, vy = self._input[i]
                 self._input[i] = x + vx, y + vy, vx, vy
             count += 1
+        return count
+
 
     def print_sky(self, width, height, min_x, min_y):
         fabric = [['.'] * (width+1) for x in range(height+1)]
@@ -44,4 +46,4 @@ class Day10:
 
 if __name__ == '__main__':
     d = Day10()
-    d.puzzle1()
+    print(d.puzzle1())
