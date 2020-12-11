@@ -55,11 +55,11 @@ with open('input.txt') as fp:
         match2 = re.findall(r'(\d+) (.*?) bags?(,|\.)', match1[0][1])
         key = match1[0][0]
         for v in match2:
-            quantity = v[0]
-            type = v[1]
+            quantity = int(v[0])
+            dtype = v[1]
             if key not in data:
                 data[key] = []
-            data[key].append(type)
+            data[key].append((quantity, dtype))
 
 def part1():
     count = 0
@@ -70,15 +70,30 @@ def part1():
 
 
 def canContain(search_key, search_term):
+    retval = False
     if search_key not in data:
-        return False
+        return retval
     values = data[search_key]
-    for v in values:
+    for (q, v) in values:
         if search_term == v:
-            return True
+            retval = True
+            break
         else:
-            return canContain(v, search_term)
+            retval = retval or canContain(v, search_term)
         
-    return False
+    return retval
+
+def countBags(search_key):
+    count = 0
+    if search_key not in data:
+        return 0
+    for (q, v) in data[search_key]:
+        count += q * (1 + countBags(v))
+    return count
+
+
+def part2():
+    return countBags('shiny gold')
 
 print(part1())
+print(part2())
