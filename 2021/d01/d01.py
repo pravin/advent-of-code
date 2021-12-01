@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-from typing import Counter
-
-
 inp = []
 
 with open('01.txt') as fp:
