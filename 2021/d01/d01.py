@@ -9,16 +9,19 @@ with open('01.txt') as fp:
     for line in fp:
         inp.append(int(line.strip()))
 
-def part1():
+def part1(inparr):
     count = 0
-    lastval = inp[0]
-    for x in inp[1:]:
+    lastval = inparr[0]
+    for x in inparr[1:]:
         if x > lastval: count += 1
         lastval = x
     return count
 
 def part2():
-    return
+    narr = []
+    for i in range(len(inp) - 2):
+        narr.append(sum(inp[i:i+3]))
+    return part1(narr)
 
-print(part1())
+print(part1(inp))
 print(part2())
